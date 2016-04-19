@@ -1,0 +1,38 @@
+.hw-simple-testimonial {
+	padding-top:20px;
+}
+
+  .hw-simple-testimonial-testimonial:before {
+	color: #ccc;
+	content: '\201C';
+	font-family: Georgia;
+	font-size: 4em;
+	height: .2em;
+	margin-right: .25em;
+	vertical-align: -.3em;
+  }
+.hw-simple-testimonial-testimonial {
+	margin-top: 10px;
+	color: #555;
+	line-height: 26px;
+	font-size: 1.1em;
+}
+.hw-simple-testimonial-author {
+	text-indent: 1.6em;
+	margin: 10px 0 0 0;
+	line-height: 24px;
+	font-size:1em;
+}
+.hw-simple-testimonial-author  span.hw-simple-testimonial-company{
+	font-size:0.9em;
+}
+
+.hw-simple-testimonial hr {
+	margin-top: 40px !important;
+	margin-bottom: 30px !important;
+}
+.hw-simple-testimonial-extra {
+	text-indent: 2em;
+	font-size:.8em;
+	margin: 0 0 10px 0;
+}

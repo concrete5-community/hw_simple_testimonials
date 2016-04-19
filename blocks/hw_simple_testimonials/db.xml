@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<schema version="0.3">
+	<table name="bthwsimpletestimonialblock">
+		<field name="bID" type="I"><KEY/><AUTOINCREMENT /><UNSIGNED /></field>
+	</table>
+	<table name="bthwsimpletestimonial">
+		<field name="sID" type="I"><KEY /><AUTOINCREMENT /><UNSIGNED /></field>
+		<field name="author" type="C" size="255"> </field>
+		<field name="company" type="C" size="255"> </field>
+		<field name="testimonial" type="X"> </field>
+		<field name="extra" type="X"> </field>
+		<field name="sortOrder" type="I"></field>
+		<index name="sID">
+            <col>sID</col>
+            <col>author</col>
+        </index>
+	</table>
+</schema>
