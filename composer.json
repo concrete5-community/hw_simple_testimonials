@@ -1,0 +1,13 @@
+{
+    "name": "edbeeny/hw_simple_testimonials",
+    "description": "A testimonial block for Concrete5 5.7",
+    "type": "concrete5-package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "edbeeny",
+            "email": "ed@honestwebsites.co.uk"
+        }
+    ],
+    "require": {}
+}
