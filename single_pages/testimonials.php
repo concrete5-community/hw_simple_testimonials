@@ -1,28 +1,26 @@
-<?php       defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
 
 <div class="hw-simple-testimonial-wrapper">
-	<h1> <?php      echo t('Testimonials') ?> </h1>
-
+    <h1> <?php echo t('Testimonials') ?> </h1>
     <div class="hw-simple-testimonial">
-	<?php           foreach ($testimonialslist as $tl) : ?>
+        <?php foreach ($entries as $e)  : ?>
 
-        <div class="ccm-block-testimonial-text">
-		
-		    <div class="hw-simple-testimonial-testimonial">
-                <?php      echo t($tl->testimonial)?>
+            <div class="ccm-block-testimonial-text">
+
+                <div class="hw-simple-testimonial-testimonial">
+                    <?php echo t($e->getTestimonial()) ?>
+                </div>
+                <div class="hw-simple-testimonial-author">
+                    <?php echo t($e->getAuthor()) ?> <span
+                            class="hw-simple-testimonial-company"><?php if (strlen($e->getCompany()) > 0){ ?>
+                        : <?php echo t($e->getCompany()) ?></span> <?php } ?>
+                </div>
+                <div class="hw-simple-testimonial-extra">
+                    <?php echo t($e->getExtra()) ?>
+                </div>
             </div>
-			<div class="hw-simple-testimonial-author">
-                <?php      echo t($tl->author)?> <span class="hw-simple-testimonial-company"><?php    if(strlen($tl->company)>0){ ?> : <?php    echo t($tl->company)?></span> <?php    } ?>
-            </div>
-			 <div class="hw-simple-testimonial-extra">
-                <?php     echo t($tl->extra) ?>
-            </div>
-        </div>
-		<hr>
-	<?php      endforeach; ?>
+            <hr>
+        <?php endforeach; ?>
     </div>
-	<?php        if ($paginator): ?>
-		<?php        echo $pagination; ?>
-	<?php        endif; ?>
 
 </div>

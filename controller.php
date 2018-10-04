@@ -1,60 +1,112 @@
-<?php      
+<?php
+
 namespace Concrete\Package\HwSimpleTestimonials;
-use Package;
-use BlockType;
-use SinglePage;
-use View;
-use Loader;
-use Route;
+
+use Concrete\Core\Backup\ContentImporter;
+use Concrete\Core\Database\EntityManager\Provider\ProviderAggregateInterface;
+use Concrete\Core\Database\EntityManager\Provider\StandardPackageProvider;
+use Concrete\Core\Package\Package;
+use Asset;
+use AssetList;
+use Concrete\Core\Routing\Router;
+use Concrete\Core\Support\Facade\Route;
+use Page;
 
 defined('C5_EXECUTE') or die(_("Access Denied."));
 
-class Controller extends Package {
+class Controller extends Package implements ProviderAggregateInterface
+{
+    /**
+     * Package Handle.
+     *
+     * @var string
+     */
+    protected $pkgHandle = 'hw_simple_testimonials';
 
-	protected $pkgHandle = 'hw_simple_testimonials';
-	protected $appVersionRequired = '5.7.4';
-	protected $pkgVersion = '1.0.0';
-			
-	public function on_start()
-	{
-		Route::register('/hwsimpletestimonials/sortorder', '\Concrete\Package\HwSimpleTestimonials\Controller\SinglePage\Dashboard\SortTestimonialOrder::SortOrder');
-	}
- 	
-	public function getPackageName() 
-	{
-		return t("HonestWebsites Simple testimonials");
-	}
+    /**
+     * Application Version Required.
+     *
+     * @var string
+     */
+    protected $appVersionRequired = '8.4';
 
-	public function getPackageDescription() 
-	{
-		return t("Show multiple testimonials on your site");
-	}
+    /**
+     * Package Version.
+     *
+     * @var string
+     */
+    protected $pkgVersion = '1.1.1';
 
-	public function install() 
-	{
-		$pkg = parent::install();
+    /**
+     * Package Name.
+     *
+     * @return string
+     */
+    public function getPackageName()
+    {
+        return t('HonestWebsites Simple testimonials');
+    }
 
-		// install block
-		BlockType::installBlockTypeFromPackage('hw_simple_testimonials', $pkg);
-		
-		//Install dashboard pages
-		$page1 = SinglePage::add('/dashboard/hw_simple_testimonials', $pkg);
-        $page1->updateCollectionName(t('HW Simple Testimonials'));
-		
-		$page2 = SinglePage::add('/dashboard/hw_simple_testimonials/addtestimonials', $pkg);
-		$page2->updateCollectionName(t('Add Testimonial'));
-		
-		
-		$page3 = SinglePage::add('/testimonials', $pkg);
-		$page3->setAttribute('exclude_nav', 1);
+    /**
+     * Package Description.
+     *
+     * @return string
+     */
+    public function getPackageDescription()
+    {
+        return t('Show multiple testimonials on your site.');
+    }
 
-		
-		return $pkg;
-	}
-	public function uninstall() {
-		parent::uninstall();
-		$db = Loader::db();
-		$db->Execute('DROP TABLE bthwsimpletestimonialblock');
-	}
+    protected $pkgAutoloaderRegistries = array(
+        'src/Entity/' => '\HwSimpleTestimonials\Entity'
+    );
+
+    public function getEntityManagerProvider()
+    {
+        $provider = new StandardPackageProvider($this->app, $this, [
+            'src/Entity/' => '\HwSimpleTestimonials\Entity'
+        ]);
+        return $provider;
+    }
+
+    public function on_start()
+    {
+        Route::register('/hwsimpletestimonials/sortorder', '\Concrete\Package\HwSimpleTestimonials\Controller\SinglePage\Dashboard\SortTestimonialOrder::SortOrder');
+
+        $al = AssetList::getInstance();
+        $al->register('css', 'hw_testimonials', 'css/hw_testimonials.css', array('version' => '1', 'position' => Asset::ASSET_POSITION_HEADER, 'minify' => false, 'combine' => false), $this);
+    }
+
+
+    public function install()
+    {
+        $pkg = parent::install();
+        $ci = new ContentImporter();
+        $ci->importContentFile($pkg->getPackagePath() . '/config/install.xml');
+
+
+    }
+
+    public function upgrade()
+    {
+        $pkg = Package::getByHandle('hw_simple_testimonials');
+        parent::upgrade();
+
+        $p1 = Page::getByPath('/dashboard/hw_simple_testimonials/addtestimonials');
+        if (is_object($p1)) {
+            $deletePage1 = \Page::getByPath('/dashboard/hw_simple_testimonials/addtestimonials', 'APPROVED');
+            $deletePage1->delete();
+        }
+        $p2 = Page::getByPath('/dashboard/hw_simple_testimonials');
+        if (is_object($p2)) {
+            $deletePage2 = \Page::getByPath('/dashboard/hw_simple_testimonials', 'APPROVED');
+            $deletePage2->delete();
+        }
+
+        $ci = new ContentImporter();
+        $ci->importContentFile($pkg->getPackagePath() . '/config/install.xml');
+
+    }
+
 
 }
