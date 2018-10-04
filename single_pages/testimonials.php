@@ -13,8 +13,8 @@
                 <div class="hw-simple-testimonial-author">
                     <?php echo t($e->getAuthor()) ?> <span
                             class="hw-simple-testimonial-company"><?php if (strlen($e->getCompany()) > 0){ ?>
-                        : <?php echo t($e->getCompany()) ?></span> <?php } ?>
-                </div>
+                        : <?php echo t($e->getCompany()) ?> <?php } ?>
+                </span></div>
                 <div class="hw-simple-testimonial-extra">
                     <?php echo t($e->getExtra()) ?>
                 </div>
