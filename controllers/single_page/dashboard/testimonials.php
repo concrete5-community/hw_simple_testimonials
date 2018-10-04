@@ -59,9 +59,8 @@ class Testimonials extends \Concrete\Core\Page\Controller\DashboardPageControlle
             $testimonial->setExtra($this->post('extra'));
             $testimonial->save();
 
-            $r = Redirect::to('/dashboard/testimonials/saved');
-            $r->send();
-            exit;
+            $this->flash('success', t('Testimonial saved successfully.'));
+            return Redirect::to('/dashboard/testimonials');
         }
     }
 
@@ -83,18 +82,6 @@ class Testimonials extends \Concrete\Core\Page\Controller\DashboardPageControlle
         }
     }
 
-    public function saved()
-    {
-        $this->set('message', t('Testimonial saved successfully.'));
-        $this->view();
-    }
-
-    public function deleted()
-    {
-        $this->set('message', t('Testimonial deleted successfully.'));
-        $this->view();
-    }
-
     public function delete()
     {
         if (!$this->token->validate('delete')) {
@@ -105,9 +92,8 @@ class Testimonials extends \Concrete\Core\Page\Controller\DashboardPageControlle
             if (is_object($e)) {
                 $e->delete();
             }
-            $r = Redirect::to('/dashboard/testimonials/deleted');
-            $r->send();
-            exit;
+            $this->flash('success', t('Testimonial deleted successfully.'));
+            return Redirect::to('/dashboard/testimonials');
 
         }
         $this->view();
