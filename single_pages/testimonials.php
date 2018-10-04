@@ -12,8 +12,8 @@
                 <?php      echo t($tl->testimonial)?>
             </div>
 			<div class="hw-simple-testimonial-author">
-                <?php      echo t($tl->author)?> <span class="hw-simple-testimonial-company"><?php    if(strlen($tl->company)>0){ ?> : <?php    echo t($tl->company)?></span> <?php    } ?>
-            </div>
+                <?php      echo t($tl->author)?> <span class="hw-simple-testimonial-company"><?php    if(strlen($tl->company)>0){ ?> : <?php    echo t($tl->company)?> <?php    } ?>
+            </span></div>
 			 <div class="hw-simple-testimonial-extra">
                 <?php     echo t($tl->extra) ?>
             </div>
