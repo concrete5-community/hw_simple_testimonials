@@ -4,6 +4,7 @@
         i.item-select-list-sort:hover {
             cursor: move
         }
+
         .ui-sortable-helper {
             display: table;
         }
@@ -151,7 +152,7 @@
             </div>
         </div>
         <div class="ccm-search-results-pagination">
-            <?php print $pagination->renderDefaultView(); ?>
+            <?php print $pagination; ?>
         </div>
 
 

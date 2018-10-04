@@ -5,10 +5,8 @@ namespace Concrete\Package\HwSimpleTestimonials\Controller\SinglePage;
 use \Concrete\Core\Page\Controller\PageController;
 use HwSimpleTestimonials\Entity\TestimonialList;
 use \Concrete\Core\Attribute\Key\CollectionKey as CollectionAttributeKey;
-use Page;
-use Core;
-use Package;
-use View;
+use Concrete\Core\Page\page;
+use Concrete\Core;
 
 defined('C5_EXECUTE') or die(("Access Denied."));
 

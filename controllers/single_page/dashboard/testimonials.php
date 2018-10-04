@@ -4,20 +4,22 @@ namespace Concrete\Package\HwSimpleTestimonials\Controller\SinglePage\Dashboard;
 
 use HwSimpleTestimonials\Entity\Testimonial;
 use HwSimpleTestimonials\Entity\TestimonialList;
-use Request;
-use Core;
-use URL;
+use Concrete\Core;
+use Concrete\Core\Search\Pagination\PaginationFactory;
+use Concrete\Core\Routing\Redirect;
 
 class Testimonials extends \Concrete\Core\Page\Controller\DashboardPageController
 {
     public function view()
     {
         $list = new TestimonialList();
-        $pagination = $list->getPagination();
-        $entries = $pagination->getCurrentPageResults();
-        $this->set('list', $list);
+        $factory = new PaginationFactory(\Request::getInstance());
+        $paginator = $factory->createPaginationObject($list);
+        $pagination = $paginator->renderDefaultView();
+        $this->set('entries', $paginator->getCurrentPageResults());
         $this->set('pagination', $pagination);
-        $this->set('entries', $entries);
+        $this->set('paginator', $paginator);
+
     }
 
     public function add()
@@ -57,7 +59,9 @@ class Testimonials extends \Concrete\Core\Page\Controller\DashboardPageControlle
             $testimonial->setExtra($this->post('extra'));
             $testimonial->save();
 
-            $this->redirect('/dashboard/testimonials', 'saved');
+            $r = Redirect::to('/dashboard/testimonials/saved');
+            $r->send();
+            exit;
         }
     }
 
@@ -101,7 +105,10 @@ class Testimonials extends \Concrete\Core\Page\Controller\DashboardPageControlle
             if (is_object($e)) {
                 $e->delete();
             }
-            $this->redirect('/dashboard/testimonials', 'deleted');
+            $r = Redirect::to('/dashboard/testimonials/deleted');
+            $r->send();
+            exit;
+
         }
         $this->view();
     }

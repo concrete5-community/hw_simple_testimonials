@@ -3,8 +3,8 @@
 namespace HwSimpleTestimonials\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Database;
-use Core;
+use Concrete\Core\Database;
+use Concrete\Core;
 
 /**
  * @ORM\Entity

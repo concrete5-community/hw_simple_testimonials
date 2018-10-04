@@ -6,13 +6,13 @@ use Concrete\Core\Backup\ContentImporter;
 use Concrete\Core\Database\EntityManager\Provider\ProviderAggregateInterface;
 use Concrete\Core\Database\EntityManager\Provider\StandardPackageProvider;
 use Concrete\Core\Package\Package;
-use Asset;
-use AssetList;
+use Concrete\Core\Asset\Asset;
+use Concrete\Core\Asset\AssetList;
 use Concrete\Core\Routing\Router;
 use Concrete\Core\Support\Facade\Route;
-use Page;
+use Concrete\Core\Page\Page;
 
-defined('C5_EXECUTE') or die(_("Access Denied."));
+defined('C5_EXECUTE') or die(("Access Denied."));
 
 class Controller extends Package implements ProviderAggregateInterface
 {
@@ -35,7 +35,7 @@ class Controller extends Package implements ProviderAggregateInterface
      *
      * @var string
      */
-    protected $pkgVersion = '1.1.1';
+    protected $pkgVersion = '1.1.2';
 
     /**
      * Package Name.
