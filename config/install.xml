@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<concrete5-cif version="1.0">
+    <singlepages>
+        <page name="HW Simple Testimonials" path="/dashboard/testimonials" filename="/dashboard/testimonials.php" pagetype="" description="" package="hw_simple_testimonials"></page>
+        <page name="Testimonials" path="/testimonials" filename="/testimonials.php" pagetype="" description="" package="hw_simple_testimonials">
+            <attributes>
+                <attributekey handle="exclude_nav">
+                    <value><![CDATA[1]]></value>
+                </attributekey>
+            </attributes>
+        </page>
+    </singlepages>
+    <blocktypes>
+        <blocktype handle="hw_simple_testimonials" package="hw_simple_testimonials"/>
+    </blocktypes>
+</concrete5-cif>
