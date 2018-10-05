@@ -7,6 +7,7 @@ use HwSimpleTestimonials\Entity\TestimonialList;
 use Concrete\Core;
 use Concrete\Core\Search\Pagination\PaginationFactory;
 use Concrete\Core\Routing\Redirect;
+use Concrete\Core\Support\Facade\Url;
 
 class Testimonials extends \Concrete\Core\Page\Controller\DashboardPageController
 {
@@ -60,7 +61,9 @@ class Testimonials extends \Concrete\Core\Page\Controller\DashboardPageControlle
             $testimonial->save();
 
             $this->flash('success', t('Testimonial saved successfully.'));
-            return Redirect::to('/dashboard/testimonials');
+           
+            $factory = $this->app->make(ResponseFactory::class);
+            return $factory->redirect(Url::to('/dashboard/testimonials'));
         }
     }
 
@@ -93,7 +96,9 @@ class Testimonials extends \Concrete\Core\Page\Controller\DashboardPageControlle
                 $e->delete();
             }
             $this->flash('success', t('Testimonial deleted successfully.'));
-            return Redirect::to('/dashboard/testimonials');
+            
+            $factory = $this->app->make(ResponseFactory::class);
+            return $factory->redirect(Url::to('/dashboard/testimonials'));
 
         }
         $this->view();
